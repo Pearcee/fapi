@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <h1>https://randomuser.me/api/</h1>
+    <h2>Fetch Data Example</h2>
+
+    <p id="demo"></p>
+
+    <h1>Authors</h1>
+    <ul id="authors"></ul>
+    <p id="item"></p>
+
+    <script>
+        const url = "http://127.0.0.1:8000/user"
+
+        async function addData(firstName, lastName, age ) {
+            let user = {
+                firstName: firstName,
+                lastName: lastName,
+                age: age
+
+            }
+
+            let fetchData = {
+                method: 'POST',
+                body: JSON.stringify(user),
+                headers: new Headers({
+                    'Content-Type': 'application/json; charset=UTF-8'
+                })
+            }
+
+            fetch(url, fetchData)
+        }
+
+        async function getData() {
+            const target = document.querySelector('#item');
+            const result = await fetch(url);
+            const data = await result.json();
+            console.log(data);
+            const html = data.reverse().map(({ firstName, lastName, age }) => `<p>${firstName}, ${lastName}, ${age}</p>`).join("");
+            target.insertAdjacentHTML('afterbegin', html);
+        }
+        getData();
+        // addData('John', 'Doe', 30);
+        // addData('Jane', 'Smith', 25);
+
+    </script>
+
+</body>
+
+</html>

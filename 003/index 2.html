@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>https://randomuser.me/api/</h1>
+    <h2>Fetch Data Example</h2>
+
+    <p id="demo"></p>
+
+    <h1>Authors</h1>
+    <ul id="authors"></ul>
+    <p id="item"></p>
+
+    <script>
+        async function getData() {
+            const target = document.querySelector('#item');
+            const result = await fetch('https://dummyjson.com/user');
+            const data = await result.json();
+            console.log(data);
+            // remove the this     .reverse() below if you didn't mean to reverse the order
+            const html = data.users.reverse().map(({ firstName , lastName}) => `<p>${firstName}, ${lastName}</p>`).join("");
+            target.insertAdjacentHTML('afterbegin', html);
+        }
+        getData();
+    </script>
+
+</body>
+
+</html>
